@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    layout:decorate="~{layout/layout}">
+
+<head>
+    <title th:text="${titulo}"></title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body>
+    <div layout:fragment="contenido" class="contenido">
+        <div class="container mt-4">
+            <div class="row g-4">
+                <!-- Fecha y Hora -->
+                <div class="col-lg-4 col-md-12">
+                    <div class="card text-center shadow-sm card-custom bg-light">
+                        <div class="card-body">
+                            <h5 class="card-title text-muted">Fecha y Hora</h5>
+                            <div class="date-time-container mt-3">
+                                <h4 id="current-date" class="fw-bold text-mango"></h4>
+                                <h3 id="current-time" class="fw-bold text-verde"></h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Turnos del Día -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="card text-center shadow-sm card-custom bg-light">
+                        <div class="card-body">
+                            <h5 class="card-title text-muted">Turnos del Día</h5>
+                            <h1 id="turnos" class="fw-bold text-naranja">0</h1>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Accesos Rápidos -->
+                <div class="col-lg-4 col-md-12">
+                    <div class="card text-center shadow-sm card-custom bg-light">
+                        <div class="card-body">
+                            <h5 class="card-title text-muted">Accesos Rápidos</h5>
+                            <div class="d-grid gap-2 mt-3">
+                                <a href="#" class="btn btn-verde"><i class="fas fa-calendar-check me-2"></i> Agendar
+                                    Cita</a>
+                                <a href="#" class="btn btn-mango"><i class="fas fa-user-plus me-2"></i> Nuevo
+                                    Paciente</a>
+                                <a href="#" class="btn btn-naranja"><i class="fas fa-user-md me-2"></i> Médicos</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Opciones principales -->
+            <div class="row mt-4">
+                <div class="col-md-3">
+                    <a href="#" class="card text-center shadow-sm btn-quick-access">
+                        <div class="card-body">
+                            <i class="fas fa-calendar fa-3x icon-hover"></i>
+                            <h5 class="mt-2">Citas</h5>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-3">
+                    <a href="#" class="card text-center shadow-sm btn-quick-access">
+                        <div class="card-body">
+                            <i class="fas fa-users fa-3x icon-hover"></i>
+                            <h5 class="mt-2">Pacientes</h5>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-3">
+                    <a href="#" class="card text-center shadow-sm btn-quick-access">
+                        <div class="card-body">
+                            <i class="fas fa-user-md fa-3x icon-hover"></i>
+                            <h5 class="mt-2">Médicos</h5>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-3">
+                    <a href="#" class="card text-center shadow-sm btn-quick-access">
+                        <div class="card-body">
+                            <i class="fas fa-cogs fa-3x icon-hover"></i>
+                            <h5 class="mt-2">Configuración</h5>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script de la Página -->
+    <script th:fragment="js" th:src="@{/js/home.js}"></script>
+</body>
+
+</html>

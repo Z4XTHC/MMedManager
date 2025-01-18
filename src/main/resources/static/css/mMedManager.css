@@ -1,0 +1,136 @@
+/* Paleta de colores */
+:root {
+    --color-mango: #FFC107;
+    --color-naranja: #FF9800;
+    --color-verde: #4CAF50;
+    --color-rojo: #D84315;
+    --color-gris: #393939;
+    --color-texto: #ffffff;
+}
+
+/* Navbar */
+.navbar-mango {
+    background-color: var(--color-gris);
+}
+
+.navbar-mango .navbar-brand {
+    font-weight: bold;
+    color: var(--color-texto);
+}
+
+.navbar-mango .nav-link {
+    color: var(--color-texto);
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.navbar-mango .nav-link:hover {
+    color: var(--color-mango);
+}
+
+/* Footer */
+.footer-mango {
+    background-color: var(--color-marron);
+    color: var(--color-texto);
+    padding: 15px 0;
+    margin-top: 20px;
+}
+
+/* Diseño del HOME.HTML */
+/* Estilos personalizados */
+.card-custom {
+    border-radius: 15px;
+    border: none;
+    padding: 20px;
+    transition: 0.3s;
+    background-color: #fff;
+}
+
+.card-custom:hover {
+    transform: translateY(-5px);
+}
+
+/* Colores de los textos */
+.text-mango { color: var(--color-mango) !important; }
+.text-naranja { color: var(--color-naranja) !important; }
+.text-verde { color: var(--color-verde) !important; }
+.text-rojo { color: var(--color-rojo) !important; }
+
+/* Botones con colores */
+.btn-mango {
+    background-color: var(--color-mango) !important;
+    color: var(--color-gris);
+    border: none;
+    font-weight: bold;
+}
+
+.btn-mango:hover {
+    background-color: #e0a800 !important;
+    color: #fff !important;
+}
+
+.btn-naranja {
+    background-color: var(--color-naranja) !important;
+    color: #fff;
+    border: none;
+    font-weight: bold;
+}
+
+.btn-naranja:hover {
+    background-color: #e67e22 !important;
+    color: #fff !important;
+}
+
+.btn-verde {
+    background-color: var(--color-verde) !important;
+    color: #fff;
+    border: none;
+    font-weight: bold;
+}
+
+.btn-verde:hover {
+    background-color: #388e3c !important;
+    color: #fff !important;
+}
+
+/* Accesos Rápidos - Corrección de Colores */
+.btn-quick-access {
+    border-radius: 10px;
+    padding: 20px;
+    text-decoration: none;
+    font-weight: bold;
+    color: #fff !important;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-quick-access i {
+    margin-bottom: 8px;
+}
+
+/* Colores asignados a cada acceso rápido */
+.btn-quick-access:nth-child(1) { background-color: var(--color-verde); }
+.btn-quick-access:nth-child(2) { background-color: var(--color-mango); }
+.btn-quick-access:nth-child(3) { background-color: var(--color-naranja); }
+.btn-quick-access:nth-child(4) { background-color: var(--color-rojo); }
+
+/* Hover con efecto */
+.btn-quick-access:hover {
+    transform: translateY(-3px);
+    filter: brightness(0.9);
+}
+
+/* Fecha y Hora */
+.date-time-container {
+    padding: 10px;
+    border-radius: 10px;
+    background-color: var(--color-gris);
+    color: var(--color-texto);
+}
+
+.text-mango {
+    color: var(--color-mango);
+}
+
+.text-verde {
+    color: var(--color-verde);
+}

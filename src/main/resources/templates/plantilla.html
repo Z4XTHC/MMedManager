@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    layout:decorate="~{layout/layout}">
+
+<head>
+    <title th:text="${titulo}"></title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body>
+    <!--Contenido de la Página-->
+    <div layout:fragment="contenido" class="contenido">
+        <div class="d-flex flex-column">
+            <div id="page-content">
+
+                <!-- CONTENEDOR -->
+                <div class="container text-center bg-white mt-3 mb-3 rounded-5 shadow-sm">
+                    <div class="row justify-content-center">
+                        <div class="col-md-7">
+                            <h1 class="fw-light mt-4 ">PLANTILLA</h1>
+                            <p class="lead ">Usar como plantilla.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!--Script de la Página-->
+    <script th:fragment="js"></script>
+</body>
+
+</html>
