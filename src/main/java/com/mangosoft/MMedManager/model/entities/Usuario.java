@@ -19,6 +19,9 @@ public class Usuario {
     @Column(nullable = false)
     private String password;
 
+    @Column(nullable = false)
+    private String email;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "usuario_roles", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "rol_id"))
     private Set<Rol> roles = new HashSet<>();
@@ -26,9 +29,10 @@ public class Usuario {
     public Usuario() {
     }
 
-    public Usuario(String username, String password) {
+    public Usuario(String username, String password, String email) {
         this.username = username;
         this.password = password;
+        this.email = email;
     }
 
     public Long getId() {
@@ -66,4 +70,13 @@ public class Usuario {
     public void addRol(Rol rol) {
         this.roles.add(rol);
     }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
 }
