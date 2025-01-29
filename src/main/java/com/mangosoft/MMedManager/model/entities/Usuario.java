@@ -26,13 +26,17 @@ public class Usuario {
     @JoinTable(name = "usuario_roles", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "rol_id"))
     private Set<Rol> roles = new HashSet<>();
 
+    private Boolean activo;
+
     public Usuario() {
+        activo = true;
     }
 
-    public Usuario(String username, String password, String email) {
+    public Usuario(String username, String password, String email, Boolean activo) {
         this.username = username;
         this.password = password;
         this.email = email;
+        this.activo = activo;
     }
 
     public Long getId() {
@@ -77,6 +81,14 @@ public class Usuario {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Boolean getActivo() {
+        return activo;
+    }
+
+    public void setActivo(Boolean activo) {
+        this.activo = activo;
     }
 
 }
