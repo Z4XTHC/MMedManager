@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    layout:decorate="~{layout/layout}">
+
+<head>
+    <title th:text="${titulo}"></title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body>
+    <!--Contenido de la Página-->
+    <div layout:fragment="contenido" class="contenido">
+        <section class="container bg-fp-secondary p-4 rounded-4 shadow shadow-4 mb-2 mt-4">
+
+            <div class="container-titulo">
+                <h3>Listado de Pacientes</h3>
+            </div>
+            <hr>
+            <div class="container-tabla">
+                <table id="tablaPacientes" class="table table-striped table-hover table-bordered table-sm"
+                    style="width: 100%;">
+                    <thead>
+
+                        <!-- Tablas -->
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre y Apellido</th>
+                            <th>DNI</th>
+                            <th>Obra Social</th>
+                            <th>Teléfono</th>
+                            <th width="150px">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="pc : ${pacientes}">
+                            <td th:text="${pc.id}"></td>
+                            <td th:text="${pc.apellido} + ', ' + ${pc.nombre}"></td>
+                            <td th:text="${pc.dni}"></td>
+                            <td th:text="${pc.obraSocial}"></td>
+                            <td th:text="${pc.telefono}"></td>
+                            <td>
+                                <!-- BOTÓN DE EDITAR -->
+                                <button th:onclick="editar([[${pc.id}]])"
+                                    class="btn btn-outline-warning float-end shadow rounded border border-1 border-warning ms-2"
+                                    data-bs-toggle="tooltip" data-bs-placement="botton" title="Editar usuario">
+                                    <i class="fa-solid fa-user-pen"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
+    <!--Script de la Página-->
+    <script th:src="@{/js/pacientes.js}" th:fragment="js"></script>
+</body>
+
+</html>

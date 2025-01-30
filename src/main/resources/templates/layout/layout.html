@@ -40,20 +40,37 @@
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/}"><i class="fas fa-user-md"></i> Médicos</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/}"><i class="fas fa-users"></i> Pacientes</a>
+                    <!-- Dropdown Pacientes -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkPacientes" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-users"></i> Pacientes
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLinkPacientes">
+                            <li>
+                                <a class="dropdown-item" href="#" data-bs-toggle="modal"
+                                    data-bs-target="#modalNuevoPaciente">
+                                    <i class="fas fa-user-plus"></i> Nuevo
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" th:href="@{/pacientes/lista}">
+                                    <i class="fas fa-list"></i> Listado
+                                </a>
+                            </li>
+                        </ul>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/}"><i class="fas fa-calendar-check"></i> Citas</a>
                     </li>
                     <!-- Dropdown  Administración -->
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkAdmin" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="fa-solid fa-gears"></i>
                             Administración
                         </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLinkAdmin">
                             <li><a class="dropdown-item" th:href="@{/usuarios}"><i class="fa-solid fa-user"></i>
                                     Usuarios</a></li>
                             <li><a class="dropdown-item" th:href="@{/roles}"><i class="fa-solid fa-user-gear"></i>
@@ -80,6 +97,68 @@
             <small>&copy; 2025 MangoSoft. Todos los derechos reservados.</small>
         </div>
     </footer>
+
+    <!-- Sección Modales -->
+
+    <!-- Modal nuevo paciente -->
+    <div class="modal fade" id="modalNuevoPaciente" tabindex="-1" aria-labelledby="modalNuevoPacienteLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalNuevoPacienteLabel">
+                        <i class="fas fa-user-plus"></i> Crear Nuevo Paciente
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <form th:action="@{/pacientes/guardar}" method="post">
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label"><i class="fas fa-user"></i> Nombre</label>
+                            <input type="text" class="form-control" id="nombre" name="nombre" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="apellido" class="form-label"><i class="fas fa-user"></i> Apellido</label>
+                            <input type="text" class="form-control" id="apellido" name="apellido" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="dni" class="form-label"><i class="fas fa-id-card"></i> DNI</label>
+                            <input type="text" class="form-control" id="dni" name="dni" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="fechaNacimiento" class="form-label"><i class="fas fa-calendar-alt"></i> Fecha de
+                                Nacimiento</label>
+                            <input type="date" class="form-control" id="fechaNacimiento" name="fechaNacimiento"
+                                required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="direccion" class="form-label"><i class="fas fa-map-marker-alt"></i>
+                                Dirección</label>
+                            <input type="text" class="form-control" id="direccion" name="direccion">
+                        </div>
+                        <div class="mb-3">
+                            <label for="telefono" class="form-label"><i class="fas fa-phone"></i> Teléfono</label>
+                            <input type="text" class="form-control" id="telefono" name="telefono">
+                        </div>
+                        <div class="mb-3">
+                            <label for="obraSocial" class="form-label"><i class="fas fa-hospital"></i> Obra
+                                Social</label>
+                            <input type="text" class="form-control" id="obraSocial" name="obraSocial">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                <i class="fas fa-times"></i> Cancelar
+                            </button>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> Guardar Paciente
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
