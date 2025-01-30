@@ -114,42 +114,43 @@
                 <div class="modal-body">
                     <form th:action="@{/pacientes/guardar}" method="post">
                         <div class="mb-3">
-                            <label for="nombre" class="form-label"><i class="fas fa-user"></i> Nombre</label>
-                            <input type="text" class="form-control" id="nombre" name="nombre" required>
+                            <label for="pNombre" class="form-label"><i class="fas fa-user"></i> Nombre</label>
+                            <input type="text" class="form-control" id="pNombre" name="pNombre" required>
                         </div>
                         <div class="mb-3">
-                            <label for="apellido" class="form-label"><i class="fas fa-user"></i> Apellido</label>
-                            <input type="text" class="form-control" id="apellido" name="apellido" required>
+                            <label for="pApellido" class="form-label"><i class="fas fa-user"></i> Apellido</label>
+                            <input type="text" class="form-control" id="pApellido" name="pApellido" required>
                         </div>
                         <div class="mb-3">
-                            <label for="dni" class="form-label"><i class="fas fa-id-card"></i> DNI</label>
-                            <input type="text" class="form-control" id="dni" name="dni" required>
+                            <label for="pDNI" class="form-label"><i class="fas fa-id-card"></i> DNI</label>
+                            <input type="text" class="form-control" id="pDNI" name="pDNI" required>
                         </div>
                         <div class="mb-3">
-                            <label for="fechaNacimiento" class="form-label"><i class="fas fa-calendar-alt"></i> Fecha de
+                            <label for="pFechaNacimiento" class="form-label"><i class="fas fa-calendar-alt"></i> Fecha
+                                de
                                 Nacimiento</label>
-                            <input type="date" class="form-control" id="fechaNacimiento" name="fechaNacimiento"
+                            <input type="date" class="form-control" id="pFechaNacimiento" name="pFechaNacimiento"
                                 required>
                         </div>
                         <div class="mb-3">
-                            <label for="direccion" class="form-label"><i class="fas fa-map-marker-alt"></i>
+                            <label for="pDireccion" class="form-label"><i class="fas fa-map-marker-alt"></i>
                                 Dirección</label>
-                            <input type="text" class="form-control" id="direccion" name="direccion">
+                            <input type="text" class="form-control" id="pDireccion" name="pDireccion">
                         </div>
                         <div class="mb-3">
-                            <label for="telefono" class="form-label"><i class="fas fa-phone"></i> Teléfono</label>
-                            <input type="text" class="form-control" id="telefono" name="telefono">
+                            <label for="pTelefono" class="form-label"><i class="fas fa-phone"></i> Teléfono</label>
+                            <input type="text" class="form-control" id="pTelefono" name="pTelefono">
                         </div>
                         <div class="mb-3">
-                            <label for="obraSocial" class="form-label"><i class="fas fa-hospital"></i> Obra
+                            <label for="pObraSocial" class="form-label"><i class="fas fa-hospital"></i> Obra
                                 Social</label>
-                            <input type="text" class="form-control" id="obraSocial" name="obraSocial">
+                            <input type="text" class="form-control" id="pObraSocial" name="pObraSocial">
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                                 <i class="fas fa-times"></i> Cancelar
                             </button>
-                            <button type="submit" class="btn btn-primary">
+                            <button type="submit" class="btn btn-primary" id="guardarPaciente">
                                 <i class="fas fa-save"></i> Guardar Paciente
                             </button>
                         </div>
