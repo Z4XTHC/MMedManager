@@ -48,8 +48,8 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLinkPacientes">
                             <li>
-                                <button class="dropdown-item" data-bs-toggle="modal"
-                                    data-bs-target="#modalNuevoPaciente">
+                                <button th:onclick="resetear()" class="dropdown-item" data-bs-toggle="modal"
+                                    data-bs-target="#modalPaciente">
                                     <i class="fas fa-user-plus"></i> Nuevo
                                 </button>
                             </li>
@@ -101,12 +101,11 @@
     <!-- Sección Modales -->
 
     <!-- Modal nuevo paciente -->
-    <div class="modal fade" id="modalNuevoPaciente" tabindex="-1" aria-labelledby="modalNuevoPacienteLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="modalPaciente" tabindex="-1" aria-labelledby="modalPacienteLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalNuevoPacienteLabel">
+                    <h5 class="modal-title" id="modalPacienteLabel">
                         <i class="fas fa-user-plus"></i> Crear Nuevo Paciente
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
@@ -150,7 +149,7 @@
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                                 <i class="fas fa-times"></i> Cancelar
                             </button>
-                            <button type="submit" class="btn btn-primary" id="guardarPaciente">
+                            <button type="button" class="btn btn-primary" id="guardarPaciente">
                                 <i class="fas fa-save"></i> Guardar Paciente
                             </button>
                         </div>

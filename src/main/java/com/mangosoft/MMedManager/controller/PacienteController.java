@@ -18,9 +18,11 @@ import com.mangosoft.MMedManager.model.services.iPacienteService;
 import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PutMapping;
 
 @Controller
 @RequestMapping("/pacientes")
@@ -59,6 +61,37 @@ public class PacienteController {
 
         pacienteService.guardar(paciente);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/editar/{id}")
+    public ResponseEntity<?> obtenerPaciente(@PathVariable("id") Long id, Model model) {
+
+        Optional<Paciente> paciente = pacienteService.buscarPorId(id);
+        if (paciente.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Paciente no encontrado.");
+        }
+
+        return ResponseEntity.ok(paciente);
+    }
+
+    @PutMapping("/actualizar/{id}")
+    public ResponseEntity<?> actualizarPaciente(@PathVariable("id") Long id, @RequestBody Paciente paciente) {
+        Optional<Paciente> pacienteExistente = pacienteService.buscarPorId(id);
+        if (pacienteExistente.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Paciente no encontrado.");
+        }
+
+        pacienteExistente.get().setNombre(paciente.getNombre());
+        pacienteExistente.get().setApellido(paciente.getApellido());
+        pacienteExistente.get().setDni(paciente.getDni());
+        pacienteExistente.get().setDireccion(paciente.getDireccion());
+        pacienteExistente.get().setTelefono(paciente.getTelefono());
+        pacienteExistente.get().setFechaNacimiento(paciente.getFechaNacimiento());
+        pacienteExistente.get().setObraSocial(paciente.getObraSocial());
+
+        pacienteService.guardar(pacienteExistente.get());
+
+        return ResponseEntity.ok(Map.of("mensaje", "Paciente actualizado correctamente"));
     }
 
 }
