@@ -51,10 +51,21 @@
 }
 
 /* Colores de los textos */
-.text-mango { color: var(--color-mango) !important; }
-.text-naranja { color: var(--color-naranja) !important; }
-.text-verde { color: var(--color-verde) !important; }
-.text-rojo { color: var(--color-rojo) !important; }
+.text-mango {
+    color: var(--color-mango) !important;
+}
+
+.text-naranja {
+    color: var(--color-naranja) !important;
+}
+
+.text-verde {
+    color: var(--color-verde) !important;
+}
+
+.text-rojo {
+    color: var(--color-rojo) !important;
+}
 
 /* Botones con colores */
 .btn-mango {
@@ -108,10 +119,21 @@
 }
 
 /* Colores asignados a cada acceso rápido */
-.btn-quick-access:nth-child(1) { background-color: var(--color-verde); }
-.btn-quick-access:nth-child(2) { background-color: var(--color-mango); }
-.btn-quick-access:nth-child(3) { background-color: var(--color-naranja); }
-.btn-quick-access:nth-child(4) { background-color: var(--color-rojo); }
+.btn-quick-access:nth-child(1) {
+    background-color: var(--color-verde);
+}
+
+.btn-quick-access:nth-child(2) {
+    background-color: var(--color-mango);
+}
+
+.btn-quick-access:nth-child(3) {
+    background-color: var(--color-naranja);
+}
+
+.btn-quick-access:nth-child(4) {
+    background-color: var(--color-rojo);
+}
 
 /* Hover con efecto */
 .btn-quick-access:hover {
@@ -133,4 +155,35 @@
 
 .text-verde {
     color: var(--color-verde);
+}
+
+
+/* Asegura que los submenús estén ocultos por defecto */
+.dropdown-submenu .dropdown-menu {
+    display: none;
+    position: absolute;
+    left: 100%;
+    top: 0;
+    margin-top: -5px;
+}
+
+/* Muestra el submenú al pasar el mouse */
+.dropdown-submenu:hover>.dropdown-menu {
+    display: block;
+}
+
+/* Estilo para mejorar la apariencia del submenú */
+.dropdown-menu {
+    min-width: 200px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Asegura que el menú no se mueva cuando aparece el submenú */
+.dropdown-submenu {
+    position: relative;
+}
+
+/* Ajusta el espacio para evitar superposición */
+.dropdown-menu .dropdown-item {
+    white-space: nowrap;
 }
