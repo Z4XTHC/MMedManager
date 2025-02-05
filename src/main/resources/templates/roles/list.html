@@ -27,21 +27,12 @@
                         <tr>
                             <th>ID</th>
                             <th>Nombre</th>
-                            <th width="150px">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr th:each="rs : ${roles}">
                             <td th:text="${rs.id}"></td>
                             <td th:text="${rs.nombre}"></td>
-                            <td>
-                                <!-- BOTÓN DE EDITAR -->
-                                <button th:onclick="editar([[${rs.id}]])"
-                                    class="btn btn-outline-warning float-end shadow rounded border border-1 border-warning ms-2"
-                                    data-bs-toggle="tooltip" data-bs-placement="botton" title="Editar usuario">
-                                    <i class="fa-solid fa-user-pen"></i>
-                                </button>
-                            </td>
                         </tr>
                     </tbody>
                 </table>
