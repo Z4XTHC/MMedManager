@@ -26,17 +26,29 @@ public class Usuario {
     @JoinTable(name = "usuario_roles", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "rol_id"))
     private Set<Rol> roles = new HashSet<>();
 
+    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
+    private Medico medico;
+
     private Boolean activo;
 
     public Usuario() {
         activo = true;
     }
 
-    public Usuario(String username, String password, String email, Boolean activo) {
+    public Usuario(String username, String password, String email, Boolean activo, Medico medico) {
         this.username = username;
         this.password = password;
         this.email = email;
         this.activo = activo;
+        this.medico = medico;
+    }
+
+    public Medico getMedico() {
+        return medico;
+    }
+
+    public void setMedico(Medico medico) {
+        this.medico = medico;
     }
 
     public Long getId() {

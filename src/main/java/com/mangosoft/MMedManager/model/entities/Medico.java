@@ -26,17 +26,22 @@ public class Medico {
     @JoinColumn(name = "area_medica_id", nullable = false)
     private AreaMedica areaMedica;
 
+    @OneToOne
+    @JoinColumn(name = "usuario_id", nullable = true)
+    private Usuario usuario;
+
     public Medico() {
     }
 
-    public Medico(Long id, String nombre, String apellido, String especialidad, String matricula,
-            AreaMedica areaMedica) {
+    public Medico(Long id, String nombre, String apellido, String especialidad, String matricula, AreaMedica areaMedica,
+            Usuario usuario) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
         this.especialidad = especialidad;
         this.matricula = matricula;
         this.areaMedica = areaMedica;
+        this.usuario = usuario;
     }
 
     public Long getId() {
@@ -85,5 +90,13 @@ public class Medico {
 
     public void setAreaMedica(AreaMedica areaMedica) {
         this.areaMedica = areaMedica;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 }
