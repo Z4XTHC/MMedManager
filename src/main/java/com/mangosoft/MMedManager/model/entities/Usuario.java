@@ -22,8 +22,11 @@ public class Usuario {
     @Column(nullable = false)
     private String email;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "usuario_roles", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "rol_id"))
+    @ManyToMany(fetch = FetchType.EAGER) // Carga los roles al traer un usuario
+    @JoinTable(name = "usuario_roles", // Nombre de la tabla intermedia
+            joinColumns = @JoinColumn(name = "usuario_id"), // Clave foránea en usuario_roles hacia Usuario
+            inverseJoinColumns = @JoinColumn(name = "rol_id") // Clave foránea en usuario_roles hacia Rol
+    )
     private Set<Rol> roles = new HashSet<>();
 
     @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
@@ -35,12 +38,15 @@ public class Usuario {
         activo = true;
     }
 
-    public Usuario(String username, String password, String email, Boolean activo, Medico medico) {
+    public Usuario(Long id, String username, String password, String email, Set<Rol> roles, Medico medico,
+            Boolean activo) {
+        this.id = id;
         this.username = username;
         this.password = password;
         this.email = email;
-        this.activo = activo;
+        this.roles = roles;
         this.medico = medico;
+        this.activo = activo;
     }
 
     public Medico getMedico() {
@@ -75,18 +81,6 @@ public class Usuario {
         this.password = password;
     }
 
-    public Set<Rol> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<Rol> roles) {
-        this.roles = roles;
-    }
-
-    public void addRol(Rol rol) {
-        this.roles.add(rol);
-    }
-
     public String getEmail() {
         return email;
     }
@@ -101,6 +95,22 @@ public class Usuario {
 
     public void setActivo(Boolean activo) {
         this.activo = activo;
+    }
+
+    public Set<Rol> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Rol> roles) {
+        this.roles = roles;
+    }
+
+    public void addRol(Rol rol) {
+        this.roles.add(rol);
+    }
+
+    public void removeRol(Rol rol) {
+        this.roles.remove(rol);
     }
 
 }

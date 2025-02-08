@@ -37,7 +37,12 @@
                             <td th:text="${us.id}"></td>
                             <td th:text="${us.username}"></td>
                             <td th:text="${us.email}"></td>
-                            <td th:text="${us.rol.nombre}"></td>
+                            <td>
+                                <span th:each="rol, iterStat : ${us.roles}">
+                                    <span th:text="${rol.nombre}"></span>
+                                    <span th:if="!${iterStat.last}">, </span> <!-- Agrega una coma entre roles -->
+                                </span>
+                            </td>
                             <td>
                                 <!-- Ver Contraseña -->
                                 <button th:onclick="verContraseña([[${us.id}]])"
@@ -66,7 +71,7 @@
     </div>
 
     <!--Script de la Página-->
-    <script th:src="@{/js/roles.js}" th:fragment="js"></script>
+    <script th:src="@{/js/usuarios.js}" th:fragment="js"></script>
 </body>
 
 </html>

@@ -1,10 +1,13 @@
 package com.mangosoft.MMedManager.model.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.mangosoft.MMedManager.model.entities.Usuario;
 
 public interface iUsuarioService {
+
+    Optional<Usuario> buscarPorUsername(String username);
 
     public List<Usuario> buscarTodos();
 
