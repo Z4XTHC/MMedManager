@@ -93,29 +93,36 @@ $("#guardarPaciente").on("click", function () {
 });
 
 // NUEVO USUARIO
-$("#btnGuardarUsuario").on("click", function () {
-    let rolesSeleccionados = $("#roles").val(); // Esto devuelve un array de los IDs seleccionados
+document.getElementById('btnGuardarUsuario').addEventListener('click', function () {
+    var checkboxes = document.querySelectorAll('input[name="roles"]:checked');
+    var rolesSeleccionados = Array.from(checkboxes).map(function (checkbox) {
+        return checkbox.value;
+    });
 
-    let usuario = {
-        username: $("#username").val(),
-        email: $("#email").val(),
-        password: $("#password").val(),
+    var usuario = {
+        username: document.getElementById('username').value,
+        email: document.getElementById('email').value,
+        password: document.getElementById('password').value,
         rolesIds: rolesSeleccionados // Asigna el array de IDs de roles
     };
 
     console.log("Datos enviados: ", usuario);
 
-    $.ajax({
-        url: "/usuarios/guardar",
-        type: "POST",
-        contentType: "application/json",
-        data: JSON.stringify(usuario),
-        success: function (response) {
-            console.log("Respuesta del servidor: " + response);
-            $("#modalUsuario").modal("hide");
+    fetch('/usuarios/guardar', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(usuario)
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log("Respuesta del servidor: ", data);
+            var modalUsuario = new bootstrap.Modal(document.getElementById('modalUsuario'));
+            modalUsuario.hide();
             Swal.fire({
                 title: "¡Éxito!",
-                text: response.mensaje,
+                text: data.mensaje,
                 icon: "success",
                 confirmButtonText: "Aceptar",
                 confirmButtonColor: "#e0a800",
@@ -126,9 +133,9 @@ $("#btnGuardarUsuario").on("click", function () {
             }).then(() => {
                 location.reload();
             });
-        },
-        error: function (response) {
-            console.error(response);
+        })
+        .catch(error => {
+            console.error(error);
             Swal.fire({
                 title: "Error",
                 text: "Error al guardar el usuario.",
@@ -140,6 +147,5 @@ $("#btnGuardarUsuario").on("click", function () {
                 timer: 2000,
                 timerProgressBar: true
             });
-        }
-    });
+        });
 });
