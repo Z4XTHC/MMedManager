@@ -107,6 +107,7 @@ public class Usuario {
 
     public void addRol(Rol rol) {
         this.roles.add(rol);
+        rol.getUsuarios().add(this);
     }
 
     public void removeRol(Rol rol) {

@@ -91,3 +91,55 @@ $("#guardarPaciente").on("click", function () {
         }
     });
 });
+
+// NUEVO USUARIO
+$("#btnGuardarUsuario").on("click", function () {
+    let rolesSeleccionados = $("#roles").val(); // Esto devuelve un array de los IDs seleccionados
+
+    let usuario = {
+        username: $("#username").val(),
+        email: $("#email").val(),
+        password: $("#password").val(),
+        rolesIds: rolesSeleccionados // Asigna el array de IDs de roles
+    };
+
+    console.log("Datos enviados: ", usuario);
+
+    $.ajax({
+        url: "/usuarios/guardar",
+        type: "POST",
+        contentType: "application/json",
+        data: JSON.stringify(usuario),
+        success: function (response) {
+            console.log("Respuesta del servidor: " + response);
+            $("#modalUsuario").modal("hide");
+            Swal.fire({
+                title: "¡Éxito!",
+                text: response.mensaje,
+                icon: "success",
+                confirmButtonText: "Aceptar",
+                confirmButtonColor: "#e0a800",
+                timer: 2000,
+                timerProgressBar: true,
+                color: "#fff",
+                background: "#495057"
+            }).then(() => {
+                location.reload();
+            });
+        },
+        error: function (response) {
+            console.error(response);
+            Swal.fire({
+                title: "Error",
+                text: "Error al guardar el usuario.",
+                icon: "error",
+                confirmButtonText: "Aceptar",
+                confirmButtonColor: "#e0a800",
+                background: "#495057",
+                color: "#fff",
+                timer: 2000,
+                timerProgressBar: true
+            });
+        }
+    });
+});

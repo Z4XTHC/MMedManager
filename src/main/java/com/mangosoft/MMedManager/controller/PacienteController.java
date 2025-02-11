@@ -1,5 +1,6 @@
 package com.mangosoft.MMedManager.controller;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -13,11 +14,14 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 
 import com.mangosoft.MMedManager.model.entities.Paciente;
+import com.mangosoft.MMedManager.model.entities.Rol;
 import com.mangosoft.MMedManager.model.services.iPacienteService;
+import com.mangosoft.MMedManager.model.services.iRolService;
 
 import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,6 +34,9 @@ public class PacienteController {
 
     @Autowired
     private iPacienteService pacienteService;
+
+    @Autowired
+    private iRolService rolService;
 
     @GetMapping("/lista")
     public String listaPacientes(Model model) {
@@ -92,6 +99,11 @@ public class PacienteController {
         pacienteService.guardar(pacienteExistente.get());
 
         return ResponseEntity.ok(Map.of("mensaje", "Paciente actualizado correctamente"));
+    }
+
+    @ModelAttribute("roles")
+    public List<Rol> getRoles() {
+        return rolService.buscarTodos();
     }
 
 }

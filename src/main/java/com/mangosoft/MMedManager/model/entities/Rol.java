@@ -22,7 +22,7 @@ public class Rol {
     @Column(unique = true, nullable = false)
     private String nombre;
 
-    @ManyToMany(mappedBy = "roles") // No hace falta otra tabla intermedia aquí
+    @ManyToMany(mappedBy = "roles")
     private Set<Usuario> usuarios = new HashSet<>();
 
     public Rol() {
@@ -57,6 +57,11 @@ public class Rol {
 
     public void setUsuarios(Set<Usuario> usuarios) {
         this.usuarios = usuarios;
+    }
+
+    public void addUsuario(Usuario usuario) {
+        this.usuarios.add(usuario);
+        usuario.getRoles().add(this);
     }
 
 }

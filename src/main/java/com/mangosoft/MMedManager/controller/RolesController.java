@@ -1,5 +1,6 @@
 package com.mangosoft.MMedManager.controller;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -13,6 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -55,5 +57,10 @@ public class RolesController {
         rolService.guardar(rol);
 
         return ResponseEntity.ok().build();
+    }
+
+    @ModelAttribute("roles")
+    public List<Rol> getRoles() {
+        return rolService.buscarTodos();
     }
 }

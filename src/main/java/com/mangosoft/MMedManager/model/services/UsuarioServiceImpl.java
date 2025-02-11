@@ -21,13 +21,22 @@ public class UsuarioServiceImpl implements iUsuarioService {
     }
 
     @Override
-    public Usuario buscarPorId(Long id) {
-        return usuarioRepo.findById(id).orElse(null);
+    public Optional<Usuario> buscarPorId(Long id) {
+        return usuarioRepo.findById(id);
     }
 
     @Override
     public void guardar(Usuario usuario) {
-        usuarioRepo.save(usuario);
+        if (usuario.getId() != null) {
+            Optional<Usuario> usuarioExistente = usuarioRepo.findById(usuario.getId());
+            if (usuarioExistente.isPresent()) {
+                usuarioRepo.save(usuario); // ACTUALIZACIÓN.
+            } else {
+                throw new RuntimeException("El usuario no existe.");
+            }
+        } else {
+            usuarioRepo.save(usuario); // NUEVO USUARIO.
+        }
     }
 
     @Override
@@ -35,18 +44,18 @@ public class UsuarioServiceImpl implements iUsuarioService {
         usuarioRepo.deleteById(id);
     }
 
-    @Override
-    public void eliminarOrHabilitar(Long id, boolean estado) {
-        // cambiar unicamente el activo por falso.
-        Usuario usuario = buscarPorId(id);
+    // @Override
+    // public void eliminarOrHabilitar(Long id, boolean estado) {
+    // // cambiar unicamente el activo por falso.
+    // Usuario usuario = buscarPorId(id);
 
-        if (estado == false) {
-            usuario.setActivo(true); // SE HABILITA SI ES FALSO.
-        } else {
-            usuario.setActivo(false); // SE DESHABILITA SI ES VERDADERO.
-        }
-        guardar(usuario);
-    }
+    // if (estado == false) {
+    // usuario.setActivo(true); // SE HABILITA SI ES FALSO.
+    // } else {
+    // usuario.setActivo(false); // SE DESHABILITA SI ES VERDADERO.
+    // }
+    // guardar(usuario);
+    // }
 
     @Override
     public Optional<Usuario> buscarPorUsername(String username) {
