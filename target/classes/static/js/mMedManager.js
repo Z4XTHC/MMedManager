@@ -100,9 +100,9 @@ document.getElementById('btnGuardarUsuario').addEventListener('click', function 
     });
 
     var usuario = {
-        username: document.getElementById('username').value,
-        email: document.getElementById('email').value,
-        password: document.getElementById('password').value,
+        username: document.getElementById('uUsername').value,
+        email: document.getElementById('uEmail').value,
+        password: document.getElementById('uPassword').value,
         rolesIds: rolesSeleccionados // Asigna el array de IDs de roles
     };
 

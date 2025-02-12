@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -83,20 +84,18 @@ public class PacienteController {
 
     @PutMapping("/actualizar/{id}")
     public ResponseEntity<?> actualizarPaciente(@PathVariable("id") Long id, @RequestBody Paciente paciente) {
-        Optional<Paciente> pacienteExistente = pacienteService.buscarPorId(id);
-        if (pacienteExistente.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Paciente no encontrado.");
-        }
+        Paciente pacienteExistente = pacienteService.buscarPorId(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Paciente no encontrado."));
 
-        pacienteExistente.get().setNombre(paciente.getNombre());
-        pacienteExistente.get().setApellido(paciente.getApellido());
-        pacienteExistente.get().setDni(paciente.getDni());
-        pacienteExistente.get().setDireccion(paciente.getDireccion());
-        pacienteExistente.get().setTelefono(paciente.getTelefono());
-        pacienteExistente.get().setFechaNacimiento(paciente.getFechaNacimiento());
-        pacienteExistente.get().setObraSocial(paciente.getObraSocial());
+        pacienteExistente.setNombre(paciente.getNombre());
+        pacienteExistente.setApellido(paciente.getApellido());
+        pacienteExistente.setDni(paciente.getDni());
+        pacienteExistente.setDireccion(paciente.getDireccion());
+        pacienteExistente.setTelefono(paciente.getTelefono());
+        pacienteExistente.setFechaNacimiento(paciente.getFechaNacimiento());
+        pacienteExistente.setObraSocial(paciente.getObraSocial());
 
-        pacienteService.guardar(pacienteExistente.get());
+        pacienteService.guardar(pacienteExistente);
 
         return ResponseEntity.ok(Map.of("mensaje", "Paciente actualizado correctamente"));
     }

@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.mangosoft.MMedManager.model.dto.UsuarioDTO;
 import com.mangosoft.MMedManager.model.entities.Rol;
@@ -29,6 +30,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 @RequestMapping("/usuarios")
@@ -83,6 +86,42 @@ public class UsuarioController {
 
         usuarioService.guardar(usuario);
         return ResponseEntity.ok(Map.of("mensaje", "Usuario guardado correctamente"));
+    }
+
+    @GetMapping("/editar/{id}")
+    public ResponseEntity<?> obtenerUsuario(@PathVariable("id") Long id, Model model) {
+
+        Usuario usuario = usuarioService.buscarPorId(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario no encontrado."));
+
+        return ResponseEntity.ok(usuario);
+    }
+
+    @PutMapping("/actualizar/{id}")
+    public ResponseEntity<?> actualizarUsuario(@PathVariable("id") Long id, @RequestBody Usuario usuario) {
+        Usuario usuarioExistente = usuarioService.buscarPorId(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario no encontrado."));
+
+        usuarioExistente.setUsername(usuario.getUsername());
+        usuarioExistente.setEmail(usuario.getEmail());
+        usuarioExistente.setPassword(usuario.getPassword());
+
+        Set<Rol> roles = new HashSet<>();
+        if (usuario.getRoles() != null && !usuario.getRoles().isEmpty()) {
+            for (Rol rol : usuario.getRoles()) {
+                Rol rolExistente = rolService.buscarPorId(rol.getId())
+                        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                                "Rol con ID " + rol.getId() + " no encontrado."));
+                roles.add(rolExistente);
+            }
+        } else {
+            return ResponseEntity.badRequest().body("Debe seleccionar al menos un rol para el usuario.");
+        }
+        usuarioExistente.setRoles(roles);
+
+        usuarioService.guardar(usuarioExistente);
+
+        return ResponseEntity.ok(Map.of("mensaje", "Usuario actualizado correctamente"));
     }
 
     @GetMapping("/admin-check")

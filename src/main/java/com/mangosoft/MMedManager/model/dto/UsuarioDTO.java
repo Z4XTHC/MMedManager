@@ -10,6 +10,17 @@ public class UsuarioDTO {
     private String password;
     private Set<Long> rolesIds = new HashSet<>();
 
+    public UsuarioDTO() {
+    }
+
+    public UsuarioDTO(Long id, String username, String email, String password, Set<Long> rolesIds) {
+        this.id = id;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.rolesIds = rolesIds;
+    }
+
     public Long getId() {
         return id;
     }
