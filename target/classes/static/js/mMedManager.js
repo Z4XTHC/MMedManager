@@ -94,6 +94,7 @@ $("#guardarPaciente").on("click", function () {
 
 // NUEVO USUARIO
 document.getElementById('btnGuardarUsuario').addEventListener('click', function () {
+
     var checkboxes = document.querySelectorAll('input[name="roles"]:checked');
     var rolesSeleccionados = Array.from(checkboxes).map(function (checkbox) {
         return checkbox.value;
@@ -126,12 +127,13 @@ document.getElementById('btnGuardarUsuario').addEventListener('click', function 
                 icon: "success",
                 confirmButtonText: "Aceptar",
                 confirmButtonColor: "#e0a800",
-                timer: 2000,
+                timer: 10000,
                 timerProgressBar: true,
                 color: "#fff",
                 background: "#495057"
             }).then(() => {
                 location.reload();
+                console.log("Usuario Creado");
             });
         })
         .catch(error => {
@@ -149,3 +151,42 @@ document.getElementById('btnGuardarUsuario').addEventListener('click', function 
             });
         });
 });
+
+// BOTON NUEVO USUARIO
+$("#btnNuevoUsuario").on("click", function () {
+    resetearModalUsuario();
+    $('#modalUsuario').modal('show');
+});
+
+// BOTON NUEVO PACIENTE
+$("#btnNuevoPaciente").on("click", function () {
+    resetearModalPaciente();
+    $('#modalPaciente').modal('show');
+});
+
+function resetearModalPaciente() {
+    $("#pId").val("");
+    $("#pNombre").val("");
+    $("#pApellido").val("");
+    $("#pDNI").val("");
+    $("#pDireccion").val("");
+    $("#pTelefono").val("");
+    $("#pFechaNacimiento").val("");
+    $("#pObraSocial").val("");
+}
+
+function resetearModalUsuario() {
+    $("#uId").val("");
+    $("#uUsername").val("");
+    $("#uEmail").val("");
+    $("#uPassword").val("");
+    //resetear cheks
+    var checkboxes = document.querySelectorAll('input[name="roles"]');
+    Array.from(checkboxes).forEach(function (checkbox) {
+        checkbox.checked = false;
+    });
+    // Actualizar el título del modal y los botones
+    $('#modalUsuarioLabel').text('Crear Nuevo Usuario');
+    $('#btnActualizarUsuario').addClass('d-none');
+    $('#btnGuardarUsuario').removeClass('d-none');
+}

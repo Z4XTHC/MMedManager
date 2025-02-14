@@ -26,7 +26,6 @@ function editar(id) {
         url: "/usuarios/editar/" + id,
         success: function (data) {
             console.log(data);
-            $("#uId").val(data.id);
             $("#uUsername").val(data.username);
             $("#uEmail").val(data.email);
             $("#uPassword").val(data.password);
@@ -38,8 +37,13 @@ function editar(id) {
             });
             $('#modalUsuario').modal('show');
 
+            // Actualizar el título del modal y los botones
+            $('#modalUsuarioLabel').text('Editar Usuario');
+            $('#btnGuardarUsuario').addClass('d-none');
+            $('#btnActualizarUsuario').removeClass('d-none');
+
             // Reemplazar evento para evitar múltiples llamadas
-            $("#guardarUsuario").off("click").on("click", function () {
+            $("#btnActualizarUsuario").off("click").on("click", function () {
                 actualizarUsuario(data.id);
             });
         },
@@ -69,8 +73,7 @@ function actualizarUsuario(id) {
 
     var usuario = {
         id: id,
-        nombre: $("#uNombre").val(),
-        apellido: $("#uApellido").val(),
+        username: $("#uUsername").val(),
         email: $("#uEmail").val(),
         password: $("#uPassword").val(),
         roles: rolesSeleccionados
@@ -93,11 +96,13 @@ function actualizarUsuario(id) {
                 confirmButtonColor: "#28a745",
                 background: "#495057",
                 color: "#fff",
-                timer: 2000,
+                timer: 10000,
                 timerProgressBar: true
             }).then(() => {
                 $('#modalUsuario').modal('hide');
                 location.reload();
+                console.log("Usuario Editado");
+                resetearModal();
             });
         },
         error: function (response) {
@@ -117,11 +122,9 @@ function actualizarUsuario(id) {
     });
 }
 
-
-function resetear() {
+function resetearModal() {
     $("#uId").val("");
-    $("#uNombre").val("");
-    $("#uApellido").val("");
+    $("#uUsername").val("");
     $("#uEmail").val("");
     $("#uPassword").val("");
     //resetear cheks
@@ -129,4 +132,8 @@ function resetear() {
     Array.from(checkboxes).forEach(function (checkbox) {
         checkbox.checked = false;
     });
+    // Actualizar el título del modal y los botones
+    $('#modalUsuarioLabel').text('Crear Nuevo Usuario');
+    $('#btnActualizarUsuario').addClass('d-none');
+    $('#btnGuardarUsuario').removeClass('d-none');
 }
