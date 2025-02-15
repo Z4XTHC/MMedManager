@@ -173,6 +173,11 @@ function resetearModalPaciente() {
     $("#pTelefono").val("");
     $("#pFechaNacimiento").val("");
     $("#pObraSocial").val("");
+
+    // Actualizar el título del modal y los botones
+    $('#modalPacienteLabel').text('Crear Nuevo Paciente');
+    $('#btnActualizarPaciente').addClass('d-none');
+    $('#guardarPaciente').removeClass('d-none');
 }
 
 function resetearModalUsuario() {

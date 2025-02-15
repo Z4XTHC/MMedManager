@@ -37,8 +37,13 @@ function editar(id) {
             $("#pObraSocial").val(data.obraSocial);
             $('#modalPaciente').modal('show');
 
+            // Actualizar el título del modal y los botones
+            $('#modalPacienteLabel').text('Editar Paciente');
+            $('#guardarPaciente').addClass('d-none');
+            $('#btnActualizarPaciente').removeClass('d-none');
+
             // Reemplazar evento para evitar múltiples llamadas
-            $("#guardarPaciente").off("click").on("click", function () {
+            $("#btnActualizarPaciente").off("click").on("click", function () {
                 actualizarPaciente(data.id);
             });
         },
@@ -92,7 +97,7 @@ function actualizarPaciente(id) {
                 timer: 2000,
                 timerProgressBar: true
             }).then(() => {
-                resetear(); //Resetea los valores del formulario.
+                resetearModalPaciente(); //Resetea los valores del formulario.
                 $("#guardarPaciente").text("Guardar"); //Vuelve a mostrar el texto original.
                 location.reload();
             });
@@ -112,18 +117,4 @@ function actualizarPaciente(id) {
             });
         }
     });
-}
-
-
-//funcion para llamar a resetear los valores del formulario
-
-function resetear() {
-    $("#pId").val("");
-    $("#pNombre").val("");
-    $("#pApellido").val("");
-    $("#pDNI").val("");
-    $("#pDireccion").val("");
-    $("#pTelefono").val("");
-    $("#pFechaNacimiento").val("");
-    $("#pObraSocial").val("");
 }
