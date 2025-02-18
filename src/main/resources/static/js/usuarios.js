@@ -68,7 +68,7 @@ function editar(id) {
 function actualizarUsuario(id) {
     var checkboxes = document.querySelectorAll('input[name="roles"]:checked');
     var rolesSeleccionados = Array.from(checkboxes).map(function (checkbox) {
-        return { id: checkbox.value };
+        return parseInt(checkbox.value);
     });
 
     var usuario = {
@@ -76,7 +76,7 @@ function actualizarUsuario(id) {
         username: $("#uUsername").val(),
         email: $("#uEmail").val(),
         password: $("#uPassword").val(),
-        roles: rolesSeleccionados
+        rolesIds: rolesSeleccionados
     };
 
     console.log("Datos a actualizar: ", usuario);
@@ -121,6 +121,7 @@ function actualizarUsuario(id) {
         }
     });
 }
+
 
 function resetearModal() {
     $("#uId").val("");

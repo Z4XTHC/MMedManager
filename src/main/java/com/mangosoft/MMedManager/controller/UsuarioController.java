@@ -99,27 +99,28 @@ public class UsuarioController {
     }
 
     @PutMapping("/actualizar/{id}")
-    public ResponseEntity<?> actualizarUsuario(@PathVariable("id") Long id, @RequestBody Usuario usuario) {
-
+    public ResponseEntity<?> actualizarUsuario(@PathVariable("id") Long id, @RequestBody UsuarioDTO usuarioDTO) {
         Usuario usuarioExistente = usuarioService.buscarPorId(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario no encontrado."));
 
-        usuarioExistente.setUsername(usuario.getUsername());
-        usuarioExistente.setEmail(usuario.getEmail());
-        usuarioExistente.setPassword(usuario.getPassword());
+        usuarioExistente.setUsername(usuarioDTO.getUsername());
+        usuarioExistente.setEmail(usuarioDTO.getEmail());
+        usuarioExistente.setPassword(usuarioDTO.getPassword());
 
-        Set<Rol> roles = new HashSet<>();
-        if (usuario.getRoles() != null && !usuario.getRoles().isEmpty()) {
-            for (Rol rol : usuario.getRoles()) {
-                Rol rolExistente = rolService.buscarPorId(rol.getId())
+        // Limpiar los roles actuales
+        usuarioExistente.getRoles().clear();
+
+        // Agregar los nuevos roles
+        if (usuarioDTO.getRolesIds() != null && !usuarioDTO.getRolesIds().isEmpty()) {
+            for (Long rolId : usuarioDTO.getRolesIds()) {
+                Rol rolExistente = rolService.buscarPorId(rolId)
                         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                                "Rol con ID " + rol.getId() + " no encontrado."));
-                roles.add(rolExistente);
+                                "Rol con ID " + rolId + " no encontrado."));
+                usuarioExistente.getRoles().add(rolExistente);
             }
         } else {
-            return ResponseEntity.badRequest().body("Debe seleccionar al menos un rol para el usuario.");
+            return ResponseEntity.badRequest().body("Debe asignar al menos un rol al usuario.");
         }
-        usuarioExistente.setRoles(roles);
 
         usuarioService.guardar(usuarioExistente);
 
