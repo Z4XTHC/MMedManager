@@ -42,8 +42,24 @@
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/}"><i class="fas fa-home"></i> Inicio</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/}"><i class="fas fa-user-md"></i> Médicos</a>
+                    <!-- Dropdown Medicos -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkMedicos" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-user-md"></i> Médicos
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLinkMedicos">
+                            <li>
+                                <button class="dropdown-item" id="btnNuevoMedico">
+                                    <i class="fas fa-user-plus"></i> Nuevo
+                                </button>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" th:href="@{/medicos/lista}">
+                                    <i class="fas fa-list"></i> Listado
+                                </a>
+                            </li>
+                        </ul>
                     </li>
                     <!-- Dropdown Pacientes -->
                     <li class="nav-item dropdown">
@@ -227,6 +243,71 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal Médico -->
+    <div class="modal fade" id="modalMedico" tabindex="-1" aria-labelledby="modalMedicoLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalMedicoLabel">
+                        <i class="fas fa-user-md"></i> Crear Nuevo Médico
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formMedico">
+                        <div class="mb-3">
+                            <label for="mNombre" class="form-label"><i class="fas fa-user"></i> Nombre</label>
+                            <input type="text" class="form-control" id="mNombre" name="mNombre" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="mApellido" class="form-label"><i class="fas fa-user"></i> Apellido</label>
+                            <input type="text" class="form-control" id="mApellido" name="mApellido" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="mEspecialidad" class="form-label"><i class="fas fa-stethoscope"></i>
+                                Especialidad</label>
+                            <input type="text" class="form-control" id="mEspecialidad" name="mEspecialidad" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="mMatricula" class="form-label"><i class="fas fa-id-badge"></i> Matrícula</label>
+                            <input type="text" class="form-control" id="mMatricula" name="mMatricula" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="mAreaMedica" class="form-label"><i class="fas fa-hospital"></i> Área
+                                Médica</label>
+                            <select class="form-select" id="mAreaMedica" name="mAreaMedica" required>
+                                <option value="">Seleccione un área médica</option>
+                                <option th:each="am : ${areaMedicas}" th:value="${am.nombre}" th:text="${am.nombre}">
+                                </option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="mUsuario" class="form-label"><i class="fas fa-user"></i> Usuario
+                                Asociado</label>
+                            <select class="form-select" id="mUsuario" name="mUsuario">
+                                <option value="">Seleccione un usuario</option>
+                                <option th:each="us : ${usuarios}" th:value="${us.username}" th:text="${us.username}">
+                                </option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="fas fa-times"></i> Cancelar
+                    </button>
+                    <button type="button" class="btn btn-primary" id="guardarMedico">
+                        <i class="fas fa-save"></i> Guardar Médico
+                    </button>
+                    <button type="button" class="btn btn-primary d-none" id="btnActualizarMedico">
+                        <i class="fas fa-save"></i> Actualizar Médico
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <!-- BOOTSTRAP 5.3.3 JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

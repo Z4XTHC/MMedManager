@@ -164,6 +164,12 @@ $("#btnNuevoPaciente").on("click", function () {
     $('#modalPaciente').modal('show');
 });
 
+//BOTON NUEVO MÉDICO
+$("#btnNuevoMedico").on("click", function () {
+    // resetearModalMedico();
+    $('#modalMedico').modal('show');
+});
+
 function resetearModalPaciente() {
     $("#pId").val("");
     $("#pNombre").val("");
