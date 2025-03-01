@@ -259,3 +259,14 @@ function resetearModalUsuario() {
     $('#btnActualizarUsuario').addClass('d-none');
     $('#btnGuardarUsuario').removeClass('d-none');
 }
+
+function resetearModalAreaMedica() {
+    $("#amNombre").val("");
+    $("#amDescripcion").val("");
+
+
+    // Actualizar el título del modal y los botones
+    $('#modalAreaMedicaLabel').text('Crear Área Médica');
+    $('#btnActualizarAreaMedica').addClass('d-none');
+    $('#guardarAreaMedica').removeClass('d-none');
+}

@@ -19,9 +19,11 @@ import com.mangosoft.MMedManager.model.services.iAreaMedicaService;
 import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.server.ResponseStatusException;
 
 @Controller
 @RequestMapping("/areas-medicas")
@@ -61,4 +63,30 @@ public class AreasMedicasController {
         return ResponseEntity.ok().build();
     }
 
+    // Editar un área médica
+    @GetMapping("/editar/{id}")
+    public ResponseEntity<?> editarAreasMedicas(@PathVariable("id") Long id, Model model) {
+
+        Optional<AreaMedica> areaMedica = areaMedicaService.buscarPorId(id);
+        if (areaMedica.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Área Médica no encontrada.");
+        }
+
+        return ResponseEntity.ok(areaMedica);
+    }
+
+    // Actualizar Área Médica
+    @PutMapping("/actualizar/{id}")
+    public ResponseEntity<?> actualizarAreasMedicas(@PathVariable("id") Long id, @RequestBody AreaMedica areaMedica) {
+
+        AreaMedica areaMedicaExistente = areaMedicaService.buscarPorId(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Área Médica no encontrada."));
+
+        areaMedicaExistente.setNombre(areaMedica.getNombre());
+        areaMedicaExistente.setDescripcion(areaMedica.getDescripcion());
+
+        areaMedicaService.guardar(areaMedicaExistente);
+
+        return ResponseEntity.ok(Map.of("mensaje", "El Área Médica se ha actualizado correctamente.\""));
+    }
 }
