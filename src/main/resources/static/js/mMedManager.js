@@ -42,7 +42,7 @@ $("#guardarRol").on("click", function () {
             console.error(error);
             Swal.fire({
                 title: "Error",
-                text: "Error al guardar el rol.",
+                text: "Error al crear el Rol.",
                 icon: "error",
                 confirmButtonText: "Aceptar",
                 confirmButtonColor: "#e0a800",
@@ -88,6 +88,17 @@ $("#guardarPaciente").on("click", function () {
         },
         error: function (error) {
             console.error(error);
+            Swal.fire({
+                title: "Error",
+                text: "Error al crear el paciente.",
+                icon: "error",
+                confirmButtonText: "Aceptar",
+                confirmButtonColor: "#e0a800",
+                background: "#495057",
+                color: "#fff",
+                timer: 2000,
+                timerProgressBar: true
+            });
         }
     });
 });
@@ -152,6 +163,47 @@ document.getElementById('btnGuardarUsuario').addEventListener('click', function 
         });
 });
 
+// NUEVA ÁREA MÉDICA
+$("#guardarAreaMedica").on("click", function () {
+    let areaMedica = {
+        nombre: $("#amNombre").val(),
+        descripcion: $("#amDescripcion").val(),
+    };
+    $.ajax({
+        type: "POST",
+        url: "/areas-medicas/generar",
+        data: JSON.stringify(areaMedica),
+        contentType: "application/json",
+        success: function (response) {
+            Swal.fire({
+                title: "¡Éxito!",
+                text: "La Área Médica se guardó correctamente.",
+                icon: "success",
+                confirmButtonText: "Aceptar",
+                confirmButtonColor: "#e0a800",
+                background: "#495057",
+                color: "#fff"
+            }).then(() => {
+                $('#modalAreaMedica').modal('hide');
+                location.reload();
+            });
+        },
+        error: function (error) {
+            console.error(error);
+            Swal.fire({
+                title: "Error",
+                text: "Error al crear el Área Médica.",
+                icon: "error",
+                confirmButtonText: "Aceptar",
+                confirmButtonColor: "#e0a800",
+                background: "#495057",
+                color: "#fff",
+                timer: 2000,
+                timerProgressBar: true
+            });
+        }
+    });
+});
 // BOTON NUEVO USUARIO
 $("#btnNuevoUsuario").on("click", function () {
     resetearModalUsuario();
@@ -168,6 +220,12 @@ $("#btnNuevoPaciente").on("click", function () {
 $("#btnNuevoMedico").on("click", function () {
     // resetearModalMedico();
     $('#modalMedico').modal('show');
+});
+
+// BOTON NUEVA ÁREA MÉDICA
+$("#btnNuevaAreaMedica").on("click", function () {
+    // resetearModalAreaMedica();
+    $('#modalAreaMedica').modal('show');
 });
 
 function resetearModalPaciente() {
