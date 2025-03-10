@@ -1,12 +1,15 @@
 package com.mangosoft.MMedManager.model.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mangosoft.MMedManager.model.entities.Medico;
 import com.mangosoft.MMedManager.model.repository.iMedicoRepository;
+
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class MedicoServiceImpl implements iMedicoService {
@@ -20,13 +23,22 @@ public class MedicoServiceImpl implements iMedicoService {
     }
 
     @Override
-    public Medico buscarPorId(Long id) {
-        return medicoRepo.findById(id).orElse(null);
+    public Optional<Medico> buscarPorId(Long id) {
+        return medicoRepo.findById(id);
     }
 
     @Override
     public void guardar(Medico medico) {
-        medicoRepo.save(medico);
+        if (medico.getId() != null) {
+            Optional<Medico> medicoExistente = medicoRepo.findById(medico.getId());
+            if (medicoExistente.isPresent()) {
+                medicoRepo.save(medico);
+            } else {
+                throw new EntityNotFoundException("El medico no existe");
+            }
+        } else {
+            medicoRepo.save(medico);
+        }
     }
 
     @Override

@@ -15,48 +15,51 @@
         <section class="container bg-fp-secondary p-4 rounded-4 shadow shadow-4 mb-2 mt-4">
 
             <div class="container-titulo">
-                <h3>Listado de Médicos</h3>
+                <h3>Listado de Usuarios</h3>
             </div>
             <hr>
             <div class="container-tabla">
-                <table id="tablaMedicos" class="table table-striped table-hover table-bordered table-sm"
+                <table id="tablaUsuarios" class="table table-striped table-hover table-bordered table-sm"
                     style="width: 100%;">
                     <thead>
 
                         <!-- Tablas -->
                         <tr>
                             <th>ID</th>
-                            <th>Apellido y Nombre</th>
-                            <th>Especialidad</th>
-                            <th>Área Médica</th>
-                            <th>Usuario</th>
+                            <th>Nombre</th>
+                            <th>E-Mail</th>
+                            <th>Rol</th>
                             <th width="150px">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="md : ${medicos}">
-                            <td th:text="${md.id}"></td>
-                            <td th:text="${md.apellido} + ', ' +${md.nombre}"></td>
-                            <td th:text="${md.especialidad}"></td>
-                            <td th:text="${md.areaMedica.nombre}"></td>
-                            <td th:text="${md.usuario.username}"></td>
+                        <tr th:each="us : ${usuarios}">
+                            <td th:text="${us.id}"></td>
+                            <td th:text="${us.username}"></td>
+                            <td th:text="${us.email}"></td>
                             <td>
-                                <!-- Ver Matricula -->
-                                <button th:onclick="verMatricula([[${md.id}]])"
-                                    class="btn btn-outline-primary float-end shadow rounded border border-1 border-primary ms-2"
-                                    data-bs-toggle="tooltip" data-bs-placement="botton" title="Ver matrícula">
-                                    <i class="fa-solid fa-file-alt"></i>
+                                <span th:each="rol, iterStat : ${us.roles}">
+                                    <span th:text="${rol.nombre}"></span>
+                                    <span th:if="!${iterStat.last}">, </span> <!-- Agrega una coma entre roles -->
+                                </span>
+                            </td>
+                            <td>
+                                <!-- Cambiar Contraseña -->
+                                <button th:onclick="verContraseña([[${us.id}]])"
+                                    class="btn btn-outline-success float-end shadow rounded border border-1 border-success ms-2"
+                                    data-bs-toggle="tooltip" data-bs-placement="botton" title="Cambiar contraseña">
+                                    <i class="fa-solid fa-key"></i>
                                 </button>
                                 <!-- Editar -->
-                                <button th:onclick="editar([[${md.id}]])"
+                                <button th:onclick="editar([[${us.id}]])"
                                     class="btn btn-outline-warning float-end shadow rounded border border-1 border-warning ms-2"
-                                    data-bs-toggle="tooltip" data-bs-placement="botton" title="Editar médico">
+                                    data-bs-toggle="tooltip" data-bs-placement="botton" title="Editar usuario">
                                     <i class="fa-solid fa-user-pen"></i>
                                 </button>
                                 <!-- Eliminar -->
-                                <button th:onclick="eliminar([[${md.id}]])"
+                                <button th:onclick="eliminar([[${us.id}]])"
                                     class="btn btn-outline-danger float-end shadow rounded border border-1 border-danger ms-2"
-                                    data-bs-toggle="tooltip" data-bs-placement="botton" title="Eliminar médico">
+                                    data-bs-toggle="tooltip" data-bs-placement="botton" title="Eliminar usuario">
                                     <i class="fa-solid fa-trash"></i>
                                 </button>
                             </td>
@@ -68,7 +71,7 @@
     </div>
 
     <!--Script de la Página-->
-    <script th:src="@{/js/medicos.js}" th:fragment="js"></script>
+    <script th:src="@{/js/usuarios.js}" th:fragment="js"></script>
 </body>
 
 </html>
