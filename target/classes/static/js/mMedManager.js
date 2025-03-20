@@ -283,6 +283,19 @@ $("#btnNuevaAreaMedica").on("click", function () {
     $('#modalAreaMedica').modal('show');
 });
 
+// BOTON AGENDAR NUEVA CITA
+$("#btnAgendarCita").on("click", function () {
+    // resetearModalAgendarCita();
+    $('#modalAgendarCita').modal('show');
+});
+
+// ABRIR MODAL PACIENTES DESDE EL MODAL DE NUEVA CITA
+$("#abrirModalPacientes").on("click", function () {
+    $('#modalAgendarCita').modal('hide');
+    resetearModalPaciente();
+    $('#modalPaciente').modal('show');
+});
+
 function resetearModalPaciente() {
     $("#pId").val("");
     $("#pNombre").val("");

@@ -80,8 +80,24 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/}"><i class="fas fa-calendar-check"></i> Citas</a>
+                    <!-- Dropdown Citas -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkCitas" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-calendar-check"></i> Citas
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLinkCitas">
+                            <li>
+                                <button id="btnAgendarCita" class="dropdown-item">
+                                    <i class="fa-regular fa-calendar-plus"></i> Nuevo
+                                </button>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" th:href="@{/citas/lista}">
+                                    <i class="fas fa-list"></i> Listado
+                                </a>
+                            </li>
+                        </ul>
                     </li>
                     <!-- Dropdown  Administración -->
                     <li class="nav-item dropdown">
@@ -320,7 +336,7 @@
         </div>
     </div>
 
-    <!-- Modal Nueva Área Médica -->
+    <!-- Modal Área Médica -->
     <div class="modal fade" id="modalAreaMedica" tabindex="-1" aria-labelledby="modalAreaMedicaLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -354,6 +370,77 @@
                     </button>
                     <button type="button" class="btn btn-primary d-none" id="btnActualizarAreaMedica">
                         <i class="fas fa-save"></i> Actualizar Área Médica
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Cita -->
+    <div class="modal fade" id="modalAgendarCita" tabindex="-1" aria-labelledby="modalCitaLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalCitaLabel">
+                        <i class="fas fa-calendar-alt"></i> Agendar Cita
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formCita">
+                        <div class="mb-3">
+                            <label for="ctPaciente" class="form-label"><i class="fas fa-user"></i> Paciente</label>
+                            <select class="form-select mb-3" id="ctPaciente" name="ctPaciente" required>
+                                <option value="">Seleccione un Paciente</option>
+                                <option th:each="pc : ${pacientes}" th:value="${pc.id}"
+                                    th:text="'DNI: ' + ${pc.dni} + ' - ' + ${pc.apellido} + ', ' + ${pc.nombre}">
+                                </option>
+                            </select>
+                            <small class="form-text text-muted">
+                                ¿No existe el paciente?
+                                <button id="abrirModalPacientes" type="button" class="btn btn-warning btn-sm ms-2">
+                                    <i class="fas fa-user-plus"></i> Generar
+                                </button>
+                            </small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="ctMedico" class="form-label"><i class="fas fa-user-md"></i> Médico</label>
+                            <select class="form-select" id="ctMedico" name="ctMedico" required>
+                                <option value="">Seleccione un Medico</option>
+                                <option th:each="md : ${medicos}" th:value="${md.id}"
+                                    th:text="${md.apellido} + ', ' + ${md.nombre} + ' - ' + ${md.especialidad}">
+                                </option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="ctFecha" class="form-label"><i class="fas fa-calendar"></i> Fecha</label>
+                            <input type="date" class="form-control" id="ctFecha" name="ctFecha" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="ctHora" class="form-label"><i class="fas fa-clock"></i> Hora</label>
+                            <input type="time" class="form-control" id="ctHora" name="ctHora" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="ctEstado" class="form-label"><i class="fas fa-info-circle"></i> Estado</label>
+                            <select class="form-select" id="ctEstado" name="ctEstado" required>
+                                <!-- Opciones dinámicas para estados -->
+                                <option value="PENDIENTE">Pendiente</option>
+                                <option value="CONFIRMADA">Confirmada</option>
+                                <option value="CANCELADA">Cancelada</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="fas fa-times"></i> Cancelar
+                    </button>
+                    <button type="button" class="btn btn-primary" id="guardarCita">
+                        <i class="fas fa-save"></i> Guardar Cita
+                    </button>
+                    <button type="button" class="btn btn-primary d-none" id="btnActualizarCita">
+                        <i class="fas fa-save"></i> Actualizar Cita
                     </button>
                 </div>
             </div>
