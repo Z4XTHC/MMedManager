@@ -21,13 +21,14 @@
             <div class="container-tabla">
                 <table id="tablaCitas" class="table table-striped table-hover table-bordered table-sm"
                     style="width: 100%;">
-                    <thead>
-
+                    <thead class="table-warning">
                         <!-- Tablas -->
-                        <tr>
+                        <tr class="text-center">
                             <th>ID</th>
+                            <th>DNI</th>
                             <th>Paciente</th>
-                            <th>Medico</th>
+                            <th>Médico</th>
+                            <th>Especialidad</th>
                             <th>Fecha</th>
                             <th>Hora</th>
                             <th>Estado</th>
@@ -35,15 +36,31 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="ct : ${citas}">
+                        <tr th:each="ct : ${citas}" class="text-center">
                             <td th:text="${ct.id}"></td>
-                            <td th:text="${ct.paciente}"></td>
-                            <td th:text="${ct.medico}"></td>
+                            <td th:text="${ct.paciente.dni}"></td>
+                            <td th:text="${ct.paciente.apellido} + ', ' +${ct.paciente.nombre}"></td>
+                            <td th:text="${ct.medico.apellido}+ ', ' + ${ct.medico.nombre}"></td>
+                            <td th:text="${ct.medico.especialidad}"></td>
                             <td th:text="${ct.fecha}"></td>
                             <td th:text="${ct.hora}"></td>
-                            <td th:text="${ct.estado}"></td>
+                            <td th:text="${ct.estado}" th:class="${#strings.trim(ct.estado) == 'PENDIENTE' ? 'bg-warning fw-bold text-light' : 
+                            #strings.trim(ct.estado) == 'CONFIRMADA' ? 'bg-success fw-bold text-light' : 
+                            #strings.trim(ct.estado) == 'COMPLETADA' ? 'bg-secondary fw-bold text-light' : 
+                            'bg-danger fw-bold text-light'}"></td>
                             <td>
-                                <button>Test</button>
+                                <!-- Editar -->
+                                <button th:onclick="editar([[${ct.id}]])"
+                                    class="btn btn-outline-warning float-end shadow rounded border border-1 border-warning ms-2"
+                                    data-bs-toggle="tooltip" data-bs-placement="botton" title="Editar cita">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </button>
+                                <!-- Cancelar -->
+                                <button th:onclick="cancelar([[${ct.id}]])"
+                                    class="btn btn-outline-danger float-end shadow rounded border border-1 border-danger ms-2"
+                                    data-bs-toggle="tooltip" data-bs-placement="botton" title="Cancelar cita">
+                                    <i class="fa-solid fa-calendar-xmark"></i>
+                                </button>
                             </td>
                         </tr>
                     </tbody>

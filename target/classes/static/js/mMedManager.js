@@ -11,6 +11,10 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+/////////////////////////////////////////////////////////////////////////
+//// SECCIÓN DE GUARDAR ENTIDADES POR MODALES
+/////////////////////////////////////////////////////////////////////////
+
 // NUEVO ROL
 $("#guardarRol").on("click", function () {
     let rol = {
@@ -258,6 +262,58 @@ $("#guardarMedico").on("click", function () {
     });
 });
 
+$("#guardarCita").on("click", function () {
+    let cita = {
+        paciente: { id: $("#ctPaciente").val() },
+        medico: { id: $("#ctMedico").val() },
+        fecha: $("#ctFecha").val(),
+        hora: $("#ctHora").val(),
+        estado: $("#ctEstado").val()
+    }
+
+    console.log("La Cita esta siendo agendada con los siguientes datos: ");
+    console.log(cita);
+
+    $.ajax({
+        type: "POST",
+        url: "/citas/agendar",
+        data: JSON.stringify(cita),
+        contentType: "application/json",
+        success: function (response) {
+            Swal.fire({
+                title: "¡Éxito!",
+                text: "La cita se agendo correctamente.",
+                icon: "success",
+                confirmButtonText: "Aceptar",
+                confirmButtonColor: "#e0a800",
+                background: "#495057",
+                color: "#fff"
+            }).then(() => {
+                $('#modalAgendarCita').modal('hide');
+                location.reload();
+            });
+        },
+        error: function (error) {
+            console.error(error);
+            Swal.fire({
+                title: "Error",
+                text: "Error al agendar la cita.",
+                icon: "error",
+                confirmButtonText: "Aceptar",
+                confirmButtonColor: "#e0a800",
+                background: "#495057",
+                color: "#fff",
+                timer: 2000,
+                timerProgressBar: true
+            });
+        }
+
+    });
+});
+
+/////////////////////////////////////////////////////////////////////////
+//// SECCIÓN DE BOTONES
+/////////////////////////////////////////////////////////////////////////
 
 // BOTON NUEVO USUARIO
 $("#btnNuevoUsuario").on("click", function () {
@@ -295,6 +351,10 @@ $("#abrirModalPacientes").on("click", function () {
     resetearModalPaciente();
     $('#modalPaciente').modal('show');
 });
+
+/////////////////////////////////////////////////////////////////////////
+//// SECCIÓN DE RESETEAR MODALES (FUNCIONES)
+/////////////////////////////////////////////////////////////////////////
 
 function resetearModalPaciente() {
     $("#pId").val("");
